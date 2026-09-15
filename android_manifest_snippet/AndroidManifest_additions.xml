@@ -1,0 +1,26 @@
+<!--
+  Merge these into android/app/src/main/AndroidManifest.xml, inside the
+  <manifest> tag and above <application>. Also add xmlns:tools to the
+  <manifest> tag if it isn't already there:
+
+    <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools">
+
+  Also set, in android/app/build.gradle:
+    minSdkVersion 21  (BLE requires >= 18; 21 is a safe floor for flutter_blue_plus)
+    compileSdkVersion 34 / targetSdkVersion 34
+-->
+
+<!-- Android 12+ (API 31+) runtime permissions -->
+<uses-permission android:name="android.permission.BLUETOOTH_SCAN"
+    android:usesPermissionFlags="neverForLocation"
+    tools:targetApi="s" />
+<uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+
+<!-- Pre-Android 12 permissions -->
+<uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="30" />
+<uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:maxSdkVersion="30" />
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" android:maxSdkVersion="30" />
+
+<!-- Declares the app uses BLE; won't hide the app from non-BLE devices unless required=true -->
+<uses-feature android:name="android.hardware.bluetooth_le" android:required="true" />
